@@ -8,18 +8,20 @@ class TrieTest {
     @Test
     fun trieTest(){
         trie.insertWord("box")
-        assertEquals(true, trie.search("box"))
-        assertEquals(false, trie.search("bo"))
-        assertEquals(false, trie.search("boxes"))
+        assertEquals(true, trie.searchExact("box"))
+        assertEquals(false, trie.searchExact("bo"))
+        assertEquals(false, trie.searchExact("boxes"))
 
         trie.insertWord("boxes")
-        assertEquals(true, trie.search("box"))
-        assertEquals(false, trie.search("bo"))
-        assertEquals(true, trie.search("boxes"))
+        assertEquals(true, trie.searchExact("box"))
+        assertEquals(false, trie.searchExact("bo"))
+        assertEquals(true, trie.searchExact("boxes"))
 
         trie.insertWord("fox")
-        assertEquals(true, trie.search("fox"))
-        assertEquals(false, trie.search("fo"))
-        assertEquals(false, trie.search("foxes"))
+        assertEquals(true, trie.searchExact("fox"))
+        assertEquals(false, trie.searchExact("fo"))
+        assertEquals(false, trie.searchExact("foxes"))
+
+        assertEquals("fox", trie.searchLongestMatch("foxhole"))
     }
 }
