@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class TrieTest {
@@ -22,6 +23,8 @@ class TrieTest {
         assertEquals(false, trie.searchExact("fo"))
         assertEquals(false, trie.searchExact("foxes"))
 
-        assertEquals("fox", trie.searchLongestMatch("foxhole"))
+        assertContains(trie.searchAll("foxes").words, "fox")
+        assertContains(trie.searchAll("foxes").words, "foxes")
+        assertEquals(4, trie.searchAll("foxe").longestMatch)
     }
 }
