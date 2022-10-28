@@ -1,3 +1,5 @@
+data class TrieSearchResult(val words: List<String>, val longestMatch: Int)
+
 class Trie {
 
     private class Node {
@@ -25,22 +27,24 @@ class Trie {
         return currentNode.isWord
     }
 
-    fun searchLongestMatch(word: String): String? {
+    fun searchAll(word: String): TrieSearchResult {
         var currentNode: Node = root
         val chars = word.lowercase().toCharArray()
 
-        var wordEnd: Int? = null
+        var matchLength = 0
+
+        val words = ArrayList<String>()
 
         for(i in chars.indices){
             currentNode.children[chars[i]]?.let { node ->
                 currentNode = node
-                if(currentNode.isWord){
-                    wordEnd = i
+                matchLength += 1
+                if(node.isWord){
+                    words.add(String(chars.slice(0 .. i).toCharArray()))
                 }
+
             } ?: break
         }
-        return wordEnd?.let {
-            return String(chars.slice(0 .. it).toCharArray())
-        }
+        return TrieSearchResult(words, matchLength)
     }
 }
