@@ -23,7 +23,6 @@ class NumberSolver @JvmOverloads internal constructor(
         if (nums.size == 1) {
             val x = nums[0]
             addResult(result, x, "$x")
-            addResult(result, -x, "-$x")
             return result
         }
         nums.sort()
@@ -38,7 +37,11 @@ class NumberSolver @JvmOverloads internal constructor(
                 addResults(result, r1, s1[r1]!!)
                 for (r2 in s2.keys) {
                     addResults(result, r2, s2[r2]!!)
-                    addResults(result, r1 + r2, comb(s1[r1]!!, "+", s2[r2]!!))
+                    if(r1 > r2) {
+                        addResults(result, r1 + r2, comb(s1[r1]!!, "+", s2[r2]!!))
+                        addResults(result, r1 * r2, comb(s1[r1]!!, "*", s2[r2]!!))
+                    }
+
                     addResults(result, r1 - r2, comb(s1[r1]!!, "-", s2[r2]!!))
                     addResults(result, r2 - r1, comb(s2[r2]!!, "-", s1[r1]!!))
                     if (r1 != 0 && r2 % r1 == 0) {
@@ -47,7 +50,6 @@ class NumberSolver @JvmOverloads internal constructor(
                     if (r2 != 0 && r1 % r2 == 0) {
                         addResults(result, r1 / r2, comb(s1[r1]!!, "/", s2[r2]!!))
                     }
-                    addResults(result, r1 * r2, comb(s1[r1]!!, "*", s2[r2]!!))
                 }
             }
         }
