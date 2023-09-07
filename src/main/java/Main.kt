@@ -66,7 +66,7 @@ fun CharArray.findCeil(fromIndex: Int): Int {
     var ceilIndex = fromIndex + 1
 
     for (i in fromIndex + 1 until this.size){
-        if (this[i] > this[fromIndex] && this[i] < this[ceilIndex]){
+        if (this[i] > this[fromIndex] && this[i] <= this[ceilIndex]){
             ceilIndex = i
         }
     }
